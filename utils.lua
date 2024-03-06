@@ -6,6 +6,7 @@ return {
     contracapa = "contracapa.png",
     font = "Oswald-Medium.ttf",
     baudio = "baudio.png",
+    bvideo = "tela.png",
     nextbutton = "nextbt.png",
     bgpag1 = "pag1.png",
     bgpag2 = "pag2.png",

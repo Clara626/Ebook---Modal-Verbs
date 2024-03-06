@@ -37,6 +37,11 @@ function scene:create( event )
 		composer.gotoScene( "pag6", "fade" )
 	end )
 
+	local bvideo = display.newImage(utils. bvideo)
+	bvideo.x = display.contentCenterX
+	bvideo.y = display.contentCenterY + 160
+	sceneGroup:insert( bvideo )
+
 	local baudio = display.newImage(utils.baudio)
 	baudio.x = display.contentCenterX
     baudio.y = display.contentCenterY + 420
