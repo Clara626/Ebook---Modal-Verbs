@@ -2,9 +2,12 @@ local utils = require("utils")
 local composer = require("composer")
 local scene = composer.newScene()
 
-local narracaoPag4 = audio.loadStream("audios/audiopag4.mp3")
 local soundTable = {
     narracaoPag4 = audio.loadSound("audios/audiopag4.mp3"),
+    narracaojanela1 = audio.loadStream("interacoes/p04/musicJanela1.mp3"),
+    narracaojanela2 = audio.loadStream("interacoes/p04/musicJanela2.mp3"),
+    narracaojanela3 = audio.loadStream("interacoes/p04/musicJanela3.mp3"),
+    narracaojanela4 = audio.loadStream("interacoes/p04/musicJanela4.mp3"),
 }
 
 -- create()
@@ -51,7 +54,7 @@ function scene:create(event)
             if flag then
                 audio.stop()
             else
-                audio.play(narracaoPag4)
+                audio.play(soundTable.narracaoPag4)
             end
             flag = not flag
             print(flag)
@@ -131,6 +134,7 @@ function scene:create(event)
         imagestart2.isVisible = false
         imagestart3.isVisible = false
         imagestart4.isVisible = false
+        audio.play(soundTable.narracaojanela1)
     end)
 
     imagestart2:addEventListener("tap", function()
@@ -142,6 +146,7 @@ function scene:create(event)
         imagestart2.isVisible = false
         imagestart3.isVisible = false
         imagestart4.isVisible = false
+        audio.play(soundTable.narracaojanela2)
     end)
 
     imagestart3:addEventListener("tap", function()
@@ -153,6 +158,7 @@ function scene:create(event)
         imagestart2.isVisible = false
         imagestart3.isVisible = false
         imagestart4.isVisible = false
+        audio.play(soundTable.narracaojanela3)
     end)
 
     imagestart4:addEventListener("tap", function()
@@ -164,6 +170,7 @@ function scene:create(event)
         imagestart2.isVisible = false
         imagestart3.isVisible = false
         imagestart4.isVisible = false
+        audio.play(soundTable.narracaojanela4)
     end)
 
     -- Manipuladores de eventos para cada imagem final (image1, image2, image3, image4) para restaurar a visibilidade dos imagestart
