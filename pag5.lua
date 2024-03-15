@@ -3,12 +3,21 @@ local composer = require("composer")
 local scene = composer.newScene()
 
 local narracaoPag5 = audio.loadStream("audios/audiopag5.mp3")
-local soundTable = {
-	narracaoPag6 = audio.loadSound( "audios/audiopag5.mp3" ),
-}
+local musicaPag5 = audio.loadStream("interacoes/p05/Should_I_Stay_Should_I_Go.mp3")
 
-local musicaPag5 = audio.loadStream("interacoes/p05/The Clash - Should I Stay or Should I Go (Official Audio).mp3")
+local isMusicPlaying = false
+local shakeThreshold = 1.2 -- ajustar esse valor conforme necessário
 
+local function onShake(event)
+    local threshold = shakeThreshold
+    if event.isShake and not isMusicPlaying then
+        audio.play(musicaPag5, {loops=-1}) 
+        isMusicPlaying = true
+    elseif event.isShake and isMusicPlaying then
+        audio.stop()
+        isMusicPlaying = false
+    end
+end
 
 -- create()
 function scene:create(event)
@@ -43,7 +52,6 @@ function scene:create(event)
     imagecaixa.x = display.contentCenterX
     imagecaixa.y = display.contentCenterY + 160
     sceneGroup:insert(imagecaixa)
-    --imagecaixa.isVisible = false
 
     local baudio = display.newImage(utils.baudio)
     baudio.x = display.contentCenterX
@@ -55,22 +63,26 @@ function scene:create(event)
     som:setFillColor(255, 255, 255)
     som.alpha = 0.1
 
-    som:addEventListener( "tap", 
-		function(event)
-			if flag then 
-				audio.stop( )
-			else 
-				audio.play(narracaoPag5)
-			end  
-			flag = not flag 
-			print( flag )
-		end				   	
+    som:addEventListener("tap", function(event)
+        if flag then
+            audio.stop()
+        else
+            audio.play(narracaoPag5)
+        end
+        flag = not flag
+        print(flag)
+    end)
 
-	)
+    -- Adiciona o evento de aceleração ao entrar na cena
+    Runtime:addEventListener("accelerometer", onShake)
+end
 
-
+-- destroy()
+function scene:destroy(event)
+    Runtime:removeEventListener("accelerometer", onShake)
 end
 
 scene:addEventListener("create", scene)
+scene:addEventListener("destroy", scene)
 
 return scene
