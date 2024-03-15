@@ -119,15 +119,15 @@ function scene:create(event)
     image1:addEventListener("touch", arrastar)
 
     imagefrase1 = display.newImage("interacoes/p06/frase1.png")
-    imagefrase1.width = 250 -- largura desejada
-    imagefrase1.height = 250 -- altura desejada
+    imagefrase1.width = 259 -- largura desejada
+    imagefrase1.height = 259 -- altura desejada
     imagefrase1.x = display.contentCenterX + 250
     imagefrase1.y = display.contentCenterY
     sceneGroup:insert(imagefrase1)
 
     imagefrase2 = display.newImage("interacoes/p06/frase2.png")
-    imagefrase2.width = 250 -- largura desejada
-    imagefrase2.height = 250 -- altura desejada
+    imagefrase2.width = 259 -- largura desejada
+    imagefrase2.height = 259 -- altura desejada
     imagefrase2.x = display.contentCenterX - 250
     imagefrase2.y = display.contentCenterY
     sceneGroup:insert(imagefrase2)

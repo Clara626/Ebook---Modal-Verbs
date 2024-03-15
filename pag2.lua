@@ -3,9 +3,8 @@ local composer = require("composer")
 local scene = composer.newScene()
 
 local narracaoPag2 = audio.loadStream("audios/audiopag2.mp3")
-local soundTable = {
-    narracaoPag2 = audio.loadSound("audios/audiopag2.mp3"),
-}
+local narracaoCan = audio.loadStream("interacoes/p02/musicBoyCan.mp3")
+local narracaoCould = audio.loadStream("interacoes/p02/musicBoyCould.mp3")
 
 -- create()
 function scene:create(event)
@@ -154,10 +153,14 @@ function scene:create(event)
                             image3.isVisible = true
                             image4.isVisible = false
                             image1.isVisible = false  -- torna image1 invisível quando image3 está visível
+                            -- Reproduz a narração para image3
+                            audio.play(narracaoCan)
                         elseif target == imagecould then
                             image3.isVisible = false
                             image4.isVisible = true
                             image1.isVisible = false  -- torna image1 invisível quando image4 está visível
+                            -- Reproduz a narração para image4
+                            audio.play(narracaoCould)
                         end
                         -- Marca que a transição ocorreu
                         transicaoOcorreu = true
@@ -188,21 +191,6 @@ function scene:create(event)
     imagecan:addEventListener("touch", arrastarESoltar)
     imagecould:addEventListener("touch", arrastarESoltar)
 
-    -- Função hide para redefinir a cena quando ela não está mais visível
-    --function scene:hide(event)
-        --local phase = event.phase
-        --if phase == "will" then
-            -- Resetar a cena para o estado inicial
-            -- Esconder as imagens extras (image3 e image4)
-            --image3.isVisible = false
-            --image4.isVisible = false
-            -- Resetar as posições de imagecan e imagecould
-            --resetPositions()
-            -- Resetar a variável de transição ocorreu
-            --transicaoOcorreu = false
-        --end
-    --end
-    --self:addEventListener("hide", scene)
 end
 
 scene:addEventListener("create", scene)

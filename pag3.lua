@@ -7,6 +7,22 @@ local soundTable = {
     narracaoPag3 = audio.loadSound("audios/audiopag3.mp3"),
 }
 
+local narracaoProfMay = audio.loadStream("interacoes/p03/musicProfMay.mp3")
+local narracaoProfMight = audio.loadStream("interacoes/p03/musicProfMight.mp3")
+local narracaoBoyYes = audio.loadStream("interacoes/p02/musicBoyYes.mp3")
+
+local function onNarracaoProfMayComplete(event)
+    if event.completed then
+        audio.play(narracaoBoyYes)
+    end
+end
+
+local function onNarracaoProfMightComplete(event)
+    if event.completed then
+        audio.play(narracaoBoyYes)
+    end
+end
+
 -- create()
 function scene:create(event)
     local sceneGroup = self.view
@@ -109,6 +125,30 @@ function scene:create(event)
     imagemight.x = display.contentCenterX - 180
     imagemight.y = display.contentCenterY + 1
     sceneGroup:insert(imagemight)
+
+    -- Variáveis para rastrear se as imagens já foram exibidas
+    local imagem3Exibida = false
+    local imagem4Exibida = false
+    local imagem6Exibida = false
+
+    -- Função para verificar a visibilidade das imagens e reproduzir as narrações apropriadas
+    local function verificarVisibilidade()
+        if image3.isVisible and not imagem3Exibida then
+            audio.play(narracaoProfMay, {onComplete=onNarracaoProfMayComplete})
+            imagem3Exibida = true
+        end
+        if image4.isVisible and not imagem4Exibida then
+            audio.play(narracaoProfMight, {onComplete=onNarracaoProfMightComplete})
+            imagem4Exibida = true
+        end
+        if image6.isVisible and not imagem6Exibida then
+            -- O áudio narracaoBoyYes será reproduzido dentro dos callbacks das narrações dos professores
+            imagem6Exibida = true
+        end
+    end
+
+    -- Adiciona um manipulador de evento de enterFrame para verificar a visibilidade das imagens continuamente
+    Runtime:addEventListener("enterFrame", verificarVisibilidade)
 
     -- Posições iniciais de imagemay e imagemight
     local initialPositions = {
@@ -215,4 +255,3 @@ end
 scene:addEventListener("create", scene)
 
 return scene
-
