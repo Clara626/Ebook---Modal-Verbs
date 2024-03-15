@@ -7,6 +7,8 @@ local soundTable = {
 	narracaoPag6 = audio.loadSound( "audios/audiopag6.mp3" ),
 }
 
+local musicFrase1 = audio.loadStream("interacoes/p06/audiofrase1.mp3")
+local musicFrase2 = audio.loadStream("interacoes/p06audiofrase2.mp3")
 
 -- create()
 function scene:create( event )
@@ -59,6 +61,27 @@ function scene:create( event )
 		end				   	
 
 	)
+
+	local image1 = display.newImage("interacoes/p06/menina.png")
+    image1.width = 250  -- largura desejada
+    image1.height = 250 -- altura desejada
+    image1.x = display.contentCenterX
+    image1.y = display.contentCenterY + 250
+    sceneGroup:insert(image1)
+
+	local imagefrase1 = display.newImage("interacoes/p06/frase1.png")
+    imagefrase1.width = 250 -- largura desejada
+    imagefrase1.height = 250 -- altura desejada
+    imagefrase1.x = display.contentCenterX + 250
+    imagefrase1.y = display.contentCenterY
+    sceneGroup:insert(imagefrase1)
+
+	local imagefrase2 = display.newImage("interacoes/p06/frase2.png")
+    imagefrase2.width = 250 -- largura desejada
+    imagefrase2.height = 250 -- altura desejada
+    imagefrase2.x = display.contentCenterX -250
+    imagefrase2.y = display.contentCenterY 
+    sceneGroup:insert(imagefrase2)
 
 
  

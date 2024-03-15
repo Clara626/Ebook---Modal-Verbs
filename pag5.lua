@@ -3,13 +3,12 @@ local composer = require("composer")
 local scene = composer.newScene()
 
 local narracaoPag5 = audio.loadStream("audios/audiopag5.mp3")
+local soundTable = {
+	narracaoPag6 = audio.loadSound( "audios/audiopag5.mp3" ),
+}
 
--- Função para parar o áudio ao sair da cena
-local function onSceneHide(event)
-    if event.phase == "did" then
-        audio.stop()
-    end
-end
+local musicaPag5 = audio.loadStream("interacoes/p05/The Clash - Should I Stay or Should I Go (Official Audio).mp3")
+
 
 -- create()
 function scene:create(event)
@@ -40,10 +39,11 @@ function scene:create(event)
         composer.gotoScene("pag6", "fade")
     end)
 
-    local bvideo = display.newImage(utils.bvideo)
-    bvideo.x = display.contentCenterX
-    bvideo.y = display.contentCenterY + 160
-    sceneGroup:insert(bvideo)
+    local imagecaixa = display.newImage("interacoes/p05/caixasom.png")
+    imagecaixa.x = display.contentCenterX
+    imagecaixa.y = display.contentCenterY + 160
+    sceneGroup:insert(imagecaixa)
+    --imagecaixa.isVisible = false
 
     local baudio = display.newImage(utils.baudio)
     baudio.x = display.contentCenterX
@@ -55,26 +55,22 @@ function scene:create(event)
     som:setFillColor(255, 255, 255)
     som.alpha = 0.1
 
-    som:addEventListener("tap", function(event)
-        if flag then
-            audio.stop()
-        else
-            audio.play(narracaoPag5)
-        end
-        flag = not flag
-    end)
+    som:addEventListener( "tap", 
+		function(event)
+			if flag then 
+				audio.stop( )
+			else 
+				audio.play(narracaoPag5)
+			end  
+			flag = not flag 
+			print( flag )
+		end				   	
 
-    -- Função para criar e exibir o vídeo ao tocar na imagem bvideo
-    local function showVideo(event)
-        local video = native.newVideo(display.contentCenterX, display.contentCenterY, 548, 356)
-        video:load("Should I Stay or Should I Go.mp4") 
-        video:play()
-    end
+	)
 
-    bvideo:addEventListener("tap", showVideo)
+
 end
 
 scene:addEventListener("create", scene)
-scene:addEventListener("hide", onSceneHide)
 
 return scene
